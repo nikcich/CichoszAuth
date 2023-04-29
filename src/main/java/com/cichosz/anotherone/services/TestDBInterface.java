@@ -20,7 +20,7 @@ public class TestDBInterface {
 	private Connection conn = null;
 	public boolean connectionsuccess = false;
 	public static int counter = 0;
-    private static final Logger LOGGER = Logger.getLogger(TestDBInterface.class.getName());
+    private final Logger LOGGER = Logger.getLogger(TestDBInterface.class.getName());
 
 	@PostConstruct
 	public void initialize() {
@@ -167,6 +167,87 @@ public class TestDBInterface {
 		}
 
 		return result.toString();
+	}
+
+	public HashMap<String,Object> getUserByUsername(String usr){
+		HashMap<String, Object> results = new HashMap<>();
+		try {
+			// Register the JDBC driver
+			Class.forName("org.mariadb.jdbc.Driver");
+
+			// Open a connection to the database
+			conn = DriverManager.getConnection("jdbc:mariadb://10.201.1.232:3306/test", "roaming", "password");
+
+			// Create a statement
+			Statement stmt = conn.createStatement();
+
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT * FROM user WHERE username='").append(usr).append("';");
+			// Execute a select query
+			ResultSet rs = stmt.executeQuery(sb.toString());
+
+			// Process the result set
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				long uid = rs.getLong("uid");
+				String jsonString = rs.getString("data");
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				
+				results.put("username", username);
+				results.put("password", password);
+				results.put("id", id);
+				results.put("data", jsonString);
+				results.put("uid", uid);
+				
+				break;
+			}
+
+			// Close the result set, statement, and connection
+			rs.close();
+			stmt.close();
+			conn.close();
+		}catch(Exception e) {
+
+		}finally {
+
+		}
+		
+		return results;
+	}
+	
+	public boolean createUser(String usr, String pass) {
+	    boolean success = true;
+	    try {
+	        // Register the JDBC driver
+	        Class.forName("org.mariadb.jdbc.Driver");
+
+	        // Open a connection to the database
+	        conn = DriverManager.getConnection("jdbc:mariadb://10.201.1.232:3306/test", "roaming", "password");
+
+	        // Create a prepared statement
+	        String sql = "INSERT INTO user(username, password) VALUES(?, ?)";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, usr);
+	        pstmt.setString(2, pass);
+
+	        LOGGER.info(pstmt.toString());
+
+	        // Execute the update query
+	        int rows = pstmt.executeUpdate();
+
+	        pstmt.close();
+	        conn.close();
+
+	        // Check if any rows were affected
+	        if (rows == 0) {
+	            success = false;
+	        }
+	    } catch (Exception e) {
+	        success = false;
+	    }
+
+	    return success;
 	}
 
 }
