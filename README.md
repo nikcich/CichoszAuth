@@ -111,3 +111,31 @@ fetch(API_CONFIG.base_url + "CichoszAuth/auth/service/signup", requestOptions)
     .catch(error => console.log('error', error));
 
 ```
+
+## Future API Calls can then use the session token it was given something like this:
+
+```js
+const requestOptions = {
+    method: 'GET',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Session': session
+    }
+};
+
+fetch(API_CONFIG.base_url + "CichoszAuth/auth/service/<ENDPOINT>", requestOptions)
+    .then(response => {
+        status = response.status;
+        return response.text();
+    })
+    .then(response => {
+        if (status != 200) {
+            // Do error handling here
+            return;
+        }
+
+        // Do something with response
+     })
+    .catch(error => console.log('error', error));
+```
