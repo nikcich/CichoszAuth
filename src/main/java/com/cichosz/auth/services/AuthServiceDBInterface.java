@@ -36,7 +36,7 @@ public class AuthServiceDBInterface {
 
 	public AuthServiceDBInterface() {
 		counter++;
-		System.out.println("TestDBInterface Initialized");
+		System.out.println("AuthServiceDBInterface Initialized");
 		this.connectionsuccess = true;
 	}
 	
@@ -173,18 +173,20 @@ public class AuthServiceDBInterface {
 	        conn = DriverManager.getConnection(db, dbUser, dbPw);
 
 	        // Create a prepared statement
-	        String sql = "INSERT INTO user(username, password) VALUES(?, ?) RETURNING id;";
-	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        String sql = "INSERT INTO user(username, password) VALUES(?, ?);";
+	        PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 	        pstmt.setString(1, usr);
 	        pstmt.setString(2, pass);
 
 	        LOGGER.info(pstmt.toString());
+	        
+	        String ts = pstmt.toString();
 
 	        // Execute the update query
 	        int rows = pstmt.executeUpdate();
 	        
 	        // Get the returned value
-	        ResultSet rs = pstmt.getResultSet();
+	        ResultSet rs = pstmt.getGeneratedKeys();
 	        if (rs != null && rs.next()) {
 	            long id = rs.getLong(1);
 	            res.put("id", id);
