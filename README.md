@@ -24,6 +24,7 @@
 ### Use the "session" token for auth on API requests
 ### Can create a endpoint that accepts a "session" token and verifies it
 ### reverse proxy this or something, make requests from other app components then to use? Idk. Could be interesting
+### https://github.com/nikcich/ExpressProxyMiddleware
 
 
 
@@ -139,3 +140,6 @@ fetch(API_CONFIG.base_url + "CichoszAuth/auth/service/<ENDPOINT>", requestOption
      })
     .catch(error => console.log('error', error));
 ```
+
+
+# TODO: Write example for deploying with glassfish?

@@ -1,1 +1,11 @@
-com\cichosz\anotherone\MyResource.class
+com\cichosz\auth\AuthRestService.class
+com\cichosz\auth\services\UUIDGenerator.class
+com\cichosz\auth\common\TTLHashMap$ValueWithExpiration.class
+com\cichosz\auth\common\ConfigReader.class
+com\cichosz\auth\CorsFilter.class
+com\cichosz\auth\services\AuthServiceDBInterface.class
+com\cichosz\auth\auth\UserCredentials.class
+com\cichosz\auth\common\TTLHashMap.class
+com\cichosz\auth\auth\PasswordUtils.class
+com\cichosz\auth\auth\UserSession.class
+com\cichosz\auth\services\AuthServiceCache.class
