@@ -39,3 +39,75 @@
 ### data longtext 
 ### username varchar(255) 
 ### password varchar(255)
+
+
+# Usage/Interaction
+
+## Login Can be handled something like this
+
+```js
+const raw = JSON.stringify({
+    "username": username,
+    "password": pw
+});
+
+const requestOptions = {
+    method: 'POST',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: raw,
+};
+
+fetch(API_CONFIG.base_url + "CichoszAuth/auth/service/login", requestOptions)
+    .then(response => {
+        status = response.status;
+        return response.text();
+    })
+    .then(response => {
+        const res = JSON.parse(response);
+        if (status != 200) {
+            setErrorMessage(res["error"]);
+            return;
+        }
+        const session = res["session"];
+        setSession(session);
+    })
+    .catch(error => console.log('error', error));
+```
+
+## SignUp Can be handled something like this
+
+```js
+const raw = JSON.stringify({
+    "username": username,
+    "password": pw
+});
+
+const requestOptions = {
+    method: 'POST',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: raw,
+};
+
+fetch(API_CONFIG.base_url + "CichoszAuth/auth/service/signup", requestOptions)
+    .then(response => {
+        status = response.status;
+        return response.text();
+    })
+    .then(response => {
+        const res = JSON.parse(response);
+        if (status != 200) {
+            setErrorMessage(res["error"]);
+            return;
+        }
+        const session = res["session"];
+        setSession(session);
+    })
+    .catch(error => console.log('error', error));
+
+```
