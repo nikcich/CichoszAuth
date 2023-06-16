@@ -24,3 +24,18 @@
 ### Use the "session" token for auth on API requests
 ### Can create a endpoint that accepts a "session" token and verifies it
 ### reverse proxy this or something, make requests from other app components then to use? Idk. Could be interesting
+
+
+
+# Database Configuration
+
+### This requires a MariaDB database to be set up.
+### Not sure im even using the uid or data columns but they are there.. Likely can be removed.
+
+### Table: user
+### Columns:
+### id int(11) AI PK 
+### uid varchar(255) 
+### data longtext 
+### username varchar(255) 
+### password varchar(255)
