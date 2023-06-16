@@ -1,4 +1,4 @@
-package com.cichosz.anotherone.auth;
+package com.cichosz.auth.auth;
 
 import java.util.HashMap;
 
@@ -6,8 +6,17 @@ public class UserSession {
 
 	private UserCredentials credentials;
 	private HashMap<String, Object> info = new HashMap<>();
-	private String id;
+	private String id; // Session ID
 	private boolean success=false;
+	private long user_id;
+	
+	public void setUserId(long i) {
+		this.user_id = i;
+	}
+	
+	public long getUserId() {
+		return this.user_id;
+	}
 	
 	public void setSuccess(boolean b) {
 		this.success = b;

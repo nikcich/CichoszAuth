@@ -1,4 +1,4 @@
-package com.cichosz.anotherone.auth;
+package com.cichosz.auth.auth;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

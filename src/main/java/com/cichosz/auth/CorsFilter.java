@@ -1,4 +1,4 @@
-package com.cichosz.anotherone;
+package com.cichosz.auth;
 
 import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;

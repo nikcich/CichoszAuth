@@ -1,56 +1,49 @@
-package com.cichosz.anotherone;
+package com.cichosz.auth;
 
-import com.cichosz.anotherone.auth.UserCredentials;
-import com.cichosz.anotherone.auth.UserSession;
-import com.cichosz.anotherone.services.*;
+import com.cichosz.auth.auth.UserCredentials;
+import com.cichosz.auth.auth.UserSession;
+import com.cichosz.auth.common.ConfigReader;
+import com.cichosz.auth.services.*;
+
 import java.util.List;
 import java.util.HashMap;
 import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.logging.Logger;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
-/**
- * Root resource (exposed at "myresource" path)
+/*
+ * Root resource (exposed at "myresource" endpoint)
+ * E.g.http://localhost:8080/CichoszAuth/auth/service
+ * 
  */
 
-@Path("myresource")
-public class MyResource {
-    private static final Logger LOGGER = Logger.getLogger(MyResource.class.getName());
-    
-	private MyCache cache;
+@Path("service")
+public class AuthRestService {
+
+	private AuthServiceCache cache;
+	private ConfigReader confReader;
 	
 	@PostConstruct
 	public void init() {
-		cache = MyCache.getInstance();
+		cache = AuthServiceCache.getInstance();
+		confReader = ConfigReader.getInstance();
 	}
 	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getIt() {
-		return "Hello";
+		return "Cichosz Basic Auth Service";
 	}
 	
-	@Path("/json")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Integer> yas() {
-		return cache.getList();
-	}
-	
-	@Path("/add")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public String yep() {
-		cache.addList();
-		return "Adding...";
-	}
-	
+
 	@Path("/activeSessions")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -74,26 +67,6 @@ public class MyResource {
     @Produces(MediaType.APPLICATION_JSON)
 	public String sessionInit(UserCredentials creds){
 		return cache.createUserSession(creds);
-	}
-	
-	@Path("/post")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-	public HashMap<String, Object> urmom(HashMap<String, Object> things){
-		
-		return things;
-	}
-	
-	@Path("/runQuery")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-	public String urmom(String data){
-		
-		String res = cache.execute(data);
-		
-		return res;
 	}
 	
 	@Path("/signup")
@@ -143,5 +116,4 @@ public class MyResource {
 	    // otherwise, return a success response
 	    return Response.ok(res).build();
 	}
-	
 }

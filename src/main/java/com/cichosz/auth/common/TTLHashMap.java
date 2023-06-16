@@ -1,4 +1,4 @@
-package com.cichosz.anotherone.common;
+package com.cichosz.auth.common;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +13,8 @@ public class TTLHashMap<K, V> {
     private volatile boolean running = true;
 
     public TTLHashMap(long defaultTTL, TimeUnit timeUnit, long cleanupInterval, TimeUnit cleanupIntervalTimeUnit) {
-        this.defaultTTL = timeUnit.toMillis(defaultTTL);
-        this.cleanupInterval = cleanupIntervalTimeUnit.toMillis(cleanupInterval);
+        this.defaultTTL = defaultTTL;
+        this.cleanupInterval = cleanupInterval;
         startCleanupThread();
     }
     
@@ -23,7 +23,7 @@ public class TTLHashMap<K, V> {
 	}
 
     public synchronized void put(K key, V value, long ttl, TimeUnit timeUnit) {
-        long expirationTime = System.currentTimeMillis() + timeUnit.toMillis(ttl);
+        long expirationTime = System.currentTimeMillis() + ttl;
         map.put(key, new ValueWithExpiration(value, expirationTime));
     }
 

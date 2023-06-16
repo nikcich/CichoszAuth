@@ -5,8 +5,8 @@
     http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd">
   <enterprise-beans>
     <session>
-      <ejb-name>TestDBInterface</ejb-name>
-      <ejb-class>com.cichosz.anotherone.services.TestDBInterface</ejb-class>
+      <ejb-name>AuthServiceDBInterface</ejb-name>
+      <ejb-class>com.cichosz.auth.services.AuthServiceDBInterface</ejb-class>
       <session-type>Stateful</session-type>
     </session>
   </enterprise-beans>

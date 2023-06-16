@@ -1,4 +1,4 @@
-package com.cichosz.anotherone.services;
+package com.cichosz.auth.services;
 import java.util.UUID;
 
 public class UUIDGenerator {
