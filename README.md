@@ -143,3 +143,32 @@ fetch(API_CONFIG.base_url + "CichoszAuth/auth/service/<ENDPOINT>", requestOption
 
 
 # TODO: Write example for deploying with glassfish?
+
+## JDK 8 and Glassfish 5
+## https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html
+## https://download.oracle.com/glassfish/5.0/release/index.html
+
+## http://hostname:4848/
+
+## Username: admin
+## password: admin
+
+# Glassfish commands
+
+### sudo systemctl daemon-reload
+### ExecStart = /usr/bin/java -jar /opt/glassfish5/glassfish/lib/client/appserver-cli.jar start-domain <domainname>
+### ExecStop = /usr/bin/java -jar /opt/glassfish5/glassfish/lib/client/appserver-cli.jar stop-domain <domainname>
+### ExecReload = /usr/bin/java -jar /opt/glassfish5/glassfish/lib/client/appserver-cli.jar restart-domain <domainname>
+
+### Some reason it doesnt like to restart or stop might need to just kill the process
+### find from ps -ef | grep glassfish
+
+### /opt/glassfish5/bin/asadmin --port 4848 change-admin-password
+### /opt/glassfish5/bin/asadmin enable-secure-admin Idk why this breaks it so cant access admin panel remotely..
+### Just forward port and use like that so u can log in. Otherwise doesnt allow remote...
+
+# Deployment of WAR
+
+### Login to the admin panel at the link above.
+### Navigate to the applications section
+### Click deploy and choose the WAR file to deploy.

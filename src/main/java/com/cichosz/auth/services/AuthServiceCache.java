@@ -36,7 +36,7 @@ public class AuthServiceCache {
 	private AuthServiceCache() {
 		try {
 			InitialContext ctx = new InitialContext();
-			db = (AuthServiceDBInterface) ctx.lookup("java:global/JavaAuthService/AuthServiceDBInterface");
+			db = (AuthServiceDBInterface) ctx.lookup("java:global/CichoszAuth/AuthServiceDBInterface");
 		}catch(Exception e) {
 			System.out.println(e.toString());
 		}finally {}
