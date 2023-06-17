@@ -116,6 +116,12 @@ public class AuthServiceCache {
 		
 		return sess;
 	}
+	
+	public boolean validateSession(String session) {
+		Object sess = this.sessionMapping.get(session);
+
+		return sess != null;
+	}
 
 }
 

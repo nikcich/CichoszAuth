@@ -116,4 +116,21 @@ public class AuthRestService {
 	    // otherwise, return a success response
 	    return Response.ok(res).build();
 	}
+	
+	@Path("/validate")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response saveRecording(@HeaderParam("Session") String session) {
+		boolean success = cache.validateSession(session);
+		
+		if(success) {
+			return Response.ok().build();
+		}else {
+			return Response.status(Status.UNAUTHORIZED)
+	                   .entity("{\"error\":\"" + "Unable To Validate" + "\"}")
+	                   .type(MediaType.APPLICATION_JSON)
+	                   .build();
+		}
+	}
 }
